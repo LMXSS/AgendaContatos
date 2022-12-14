@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agenda de Contatos</title>
+    <!-- Referência dos arquivos CSS do layout -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css"/>
+</head>
+
+<body class="bg-secondary">
+
+    <div class="row mt-5">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-body">
+                    @** Área para exibir o conteudo das demais páginas *@
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="text-center text-white mt-3">
+                Agenda de Contatos v1.0
+            </div>
+        </div>
+    </div>
+
+    <!-- Referência dos arquivos JS do layout -->
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿@** Definir a classe de modelo desta página *@
+@model AgendaContatos.Mvc.Models.SenhaEdicaoModel
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5 class="card-title">Alterar senha de acesso</h5>
+        <p class="card-text">Preencha os campos para alterar sua senha de acesso à agenda.</p>
+        <hr/>
+
+        @using(Html.BeginForm())
+        {
+            <div class="row mb-3">
+
+                <div class="col-md-4">
+                    <label>Senha atual:</label>
+                    @Html.PasswordFor(model => model.SenhaAtual, 
+                    new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Entre com sua senha atual"
+                    })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.SenhaAtual)
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Nova senha:</label>
+                    @Html.PasswordFor(model => model.NovaSenha, 
+                    new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Entre com sua nova senha"
+                    })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.NovaSenha)
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label>Confirme a nova senha:</label>
+                    @Html.PasswordFor(model => model.NovaSenhaConfirmacao, 
+                    new
+                    {
+                        @class = "form-control",
+                        @placeholder = "Confirme a sua nova senha"
+                    })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.NovaSenhaConfirmacao)
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+
+                    <input type="submit" value="Salvar Alterações" class="btn btn-success"/>
+
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+

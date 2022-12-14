@@ -1,0 +1,62 @@
+﻿@** Definir a classe de modelo desta página *@
+@model AgendaContatos.Mvc.Models.AccountLoginModel
+
+@{
+    Layout = "~/Views/Shared/AccountLayout.cshtml";
+}
+
+<div class="text-center">
+    <img src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png" class="img-fluid"/>
+    <h3>Agenda de Contatos</h3>
+    <p>Entre com seus dados para acessar a agenda.</p>
+</div>
+<hr/>
+
+@** formulário padrão Razor *@
+@using(Html.BeginForm())
+{
+    <div class="mb-2">
+        <label>Email de acesso:</label>
+        @Html.TextBoxFor(model => model.Email, 
+            new 
+            { 
+                @class="form-control",
+                @placeholder="Digite seu email aqui"
+            })
+        <div class="text-danger">
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+    </div>
+
+    <div class="mb-2">
+        <label>Senha de acesso:</label>
+        @Html.PasswordFor(model => model.Senha, 
+        new        
+        {
+            @class="form-control",
+            @placeholder="Digite sua senha aqui"
+        })
+        <div class="text-danger">
+            @Html.ValidationMessageFor(model => model.Senha)
+        </div>
+        <div class="text-end">
+            <a href="/Account/Password">
+                Esqueci minha senha.
+            </a>
+        </div>
+    </div>
+
+    <div class="mb-2 d-grid">
+        <input type="submit" class="btn btn-primary" value="Entrar"/>
+    </div>   
+}
+
+<div class="mb-2 d-grid">
+    <a href="/Account/Register" class="btn btn-light">
+        Não possui conta? <strong>Cadastre-se aqui!</strong>
+    </a>
+</div>
+
+<div class="mb-2 text-center text-danger">
+    <strong>@TempData["Mensagem"]</strong>
+</div>

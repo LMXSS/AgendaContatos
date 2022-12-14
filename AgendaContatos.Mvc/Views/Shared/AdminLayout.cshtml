@@ -1,0 +1,119 @@
+﻿@using AgendaContatos.Mvc.Models
+@using Newtonsoft.Json
+
+@{
+    //ler o conteudo json gravado no cookie de autenticação do AspNet
+    var json = User.Identity.Name;
+
+    //deserializar o conteudo do json
+    var auth = JsonConvert.DeserializeObject<AuthenticationModel>(json);
+}
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Agenda de Contatos</title>
+
+    <!-- referencia dos arquivos CSS do projeto -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    @** local para inserir conteudo CSS *@
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+
+    <!-- barra de menus -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Agenda de Contatos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gerenciar Contatos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Contatos/Cadastro">Cadastrar Contatos</a></li>
+                            <li><a class="dropdown-item" href="/Contatos/Consulta">Consultar Contatos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Contatos/Relatorio">Relatório de Contatos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gerenciar Minha Conta
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/Usuarios/SenhaEdicao">Alterar Senha de Acesso</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="d-flex">
+                    <div class="text-white">
+                        <div>
+                            <strong>@auth.Nome</strong>
+                        </div>
+                        <div style="margin-top: -10px!important;">
+                            <small>@auth.Email</small>
+                        </div>
+                    </div>
+                    &nbsp;&nbsp;
+                    <a href="/Account/Logout" class="btn btn-outline-light"
+                       onclick="return confirm('Deseja realmente sair do sistema?')">
+                        Encerrar sessão
+                    </a>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Sucesso!</strong> @TempData["MensagemSucesso"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["MensagemAlerta"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Alerta!</strong> @TempData["MensagemAlerta"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    else if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Falha!</strong> @TempData["MensagemErro"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="container mt-3">
+        @** local para renderizar o conteudo das demais páginas *@
+        @RenderBody()
+    </div>
+
+    <!-- referencia dos arquivos JS do projeto -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    @** local para renderizar conteudo javascript *@
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+﻿@** Definir a classe de modelo de dados da página *@
+@model List<AgendaContatos.Mvc.Models.ContatosConsultaModel>
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5>Consulta de Contatos</h5>
+        <p>Listagem de contatos cadastrados.</p>
+        <hr />
+
+        <div class="table-responsive">
+            <table class="table table-sm" id="tabela-contatos">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nome do contato</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Data de nascimento</th>
+                        <th width="160">Operações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <img src="@item.Foto" width="40" class="rounded-circle"/>
+                            </td>
+                            <td>@item.Nome</td>
+                            <td>@item.Email</td>
+                            <td>@item.Telefone</td>
+                            <td>@item.DataNascimento</td>
+                            <td>
+                                <a href="/Contatos/Edicao/@item.IdContato" 
+                                    onclick="return confirm('Deseja editar este contato?');"
+                                    class="btn btn-sm btn-primary">
+                                    Editar
+                                </a>
+                                <a href="/Contatos/Exclusao/@item.IdContato" 
+                                    onclick="return confirm('Deseja excluir este contato?');"
+                                    class="btn btn-sm btn-danger">
+                                    Excluir
+                                </a>
+                            </td>
+                        </tr>
+                    }                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+@section styles {
+    <link rel="stylesheet" href="~/css/jquery.dataTables.min.css" type="text/css"/>
+}
+
+@section scripts {
+
+    <script src="~/js/jquery-3.6.1.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready( function () {
+            $('#tabela-contatos').DataTable({
+                language: {
+		            url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Portuguese-Brasil.json'
+		        }
+            });
+        });
+    </script>
+}
+
+

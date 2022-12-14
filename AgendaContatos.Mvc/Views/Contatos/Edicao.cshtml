@@ -1,0 +1,88 @@
+﻿@** Definir a classe de modelo desta página *@
+@model AgendaContatos.Mvc.Models.ContatosEdicaoModel
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5>Edição de Contatos</h5>
+        <p>Utilize os campos para alterar um contato.</p>
+        <hr/>
+
+        @using(Html.BeginForm("Edicao", "Contatos", FormMethod.Post, 
+           new { @enctype = "multipart/form-data" }))
+        {
+            <div>
+                <!-- campo oculto -->
+                @Html.HiddenFor(model => model.IdContato)
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>Nome do contato:</label>
+                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Nome)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Email:</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Telefone:</label>
+                    @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control" })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Telefone)
+                    </div>
+                </div>
+            </div>
+
+             <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>Data de Nascimento:</label>
+                    @Html.TextBoxFor(model => model.DataNascimento, new { @class = "form-control" })
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.DataNascimento)
+                    </div>
+                </div>               
+                <div class="col-md-9">
+                    <label>Foto:</label>
+                    <input type="file" name="Foto" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input type="submit" value="Salvar Alterações" class="btn btn-primary"/>
+                    &nbsp;
+                    <a href="/Contatos/Consulta" class="btn btn-light">
+                        Voltar para a consulta    
+                    </a>
+                </div>   
+            </div>
+        }
+
+    </div>
+</div>
+
+@** conteudo especifico para a seção 'scripts' do layout *@
+@section scripts {
+
+    <script src="~/js/jquery-3.6.1.min.js"></script>
+    <script src="~/js/jquery.maskedinput.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#Telefone").mask("(99) 99999-9999");
+            $("#DataNascimento").mask("99/99/9999");
+        })
+    </script>
+}
+

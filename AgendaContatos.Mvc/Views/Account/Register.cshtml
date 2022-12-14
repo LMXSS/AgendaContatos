@@ -1,0 +1,84 @@
+﻿@** Definir a classe de modelo utilizada nesta página *@
+@model AgendaContatos.Mvc.Models.AccountRegisterModel
+
+@{
+    Layout = "~/Views/Shared/AccountLayout.cshtml";
+}
+
+<div class="text-center">
+    <h3>Crie sua conta de acesso</h3>
+    <p>Entre com seus dados para criar sua conta.</p>
+</div>
+<hr />
+
+@** formulário razor *@
+@using (Html.BeginForm())
+{
+    <div class="mb-2">
+        <label>Nome do usuário:</label>
+        @Html.TextBoxFor(model => model.Nome, 
+            new
+            {
+                @class="form-control",
+                @placeholder="Digite seu nome aqui"
+            })
+        <span class="text-danger">
+            @Html.ValidationMessageFor(model => model.Nome)
+        </span>
+    </div>
+
+    <div class="mb-2">
+        <label>Email de acesso:</label>
+        @Html.TextBoxFor(model => model.Email, 
+            new
+            {
+                @class="form-control",
+                @placeholder="Digite seu email aqui"
+            })
+        <span class="text-danger">
+            @Html.ValidationMessageFor(model => model.Email)
+        </span>
+    </div>
+
+    <div class="mb-2">
+        <label>Senha de acesso:</label>
+        @Html.PasswordFor(model => model.Senha, 
+            new
+            {
+                @class="form-control",
+                @placeholder="Digite sua senha aqui"
+            })
+        <span class="text-danger">
+            @Html.ValidationMessageFor(model => model.Senha)
+        </span>
+    </div>
+
+    <div class="mb-2">
+        <label>Confirme sua senha:</label>
+        @Html.PasswordFor(model => model.SenhaConfirmacao, 
+            new
+            {
+                @class="form-control",
+                @placeholder="Confirme sua senha aqui"
+            })
+        <span class="text-danger">
+            @Html.ValidationMessageFor(model => model.SenhaConfirmacao)
+        </span>
+    </div>
+
+    <div class="mb-2 d-grid">
+        <input type="submit" class="btn btn-primary" value="Realizar Cadastro" />
+    </div>
+}
+
+<div class="mb-2 d-grid">
+    <a href="/Account/Login" class="btn btn-light">
+        Já possui conta? <strong>Acesse aqui!</strong>
+    </a>
+</div>
+
+<div class="mb-2 text-center">
+    <strong>@TempData["Mensagem"]</strong>
+</div>
+
+

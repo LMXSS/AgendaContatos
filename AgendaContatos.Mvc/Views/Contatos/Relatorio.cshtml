@@ -1,0 +1,43 @@
+﻿@** Definir a classe de modelo de dados da página *@
+@model AgendaContatos.Mvc.Models.ContatosRelatorioModel
+
+@{
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <h5>Relatório de Contatos</h5>
+        <p>Faça download dos contatos cadastrados.</p>
+        <hr/>
+
+        @using(Html.BeginForm())
+        {
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label>Escolha o formato do Relatório:</label>
+                    <div>
+                        @Html.RadioButtonFor(model => model.Formato, "excel") <span>Planilha Excel</span>
+                        &nbsp;&nbsp;&nbsp;
+                        @Html.RadioButtonFor(model => model.Formato, "pdf") <span>Documento PDF</span>
+                    </div>
+                    <div class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Formato)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <input type="submit" value="Gerar Relatório" class="btn btn-success"/>
+                    <a href="/Contatos/Consulta" class="btn btn-light">
+                        Voltar para a consulta
+                    </a>
+                </div>   
+            </div>
+        }
+
+    </div>
+</div>
+
